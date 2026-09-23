@@ -237,3 +237,85 @@ async function investigateExperiment() {
     }
 
 }
+
+function updateCircuitDiagram() {
+
+    const r1 =
+        document.getElementById("r1").value;
+
+    const r2 =
+        document.getElementById("r2").value;
+
+
+    const r1Display =
+        document.querySelector("#circuitR1");
+
+
+    const r2Display =
+        document.querySelector("#circuitR2");
+
+
+    if (r1Display && r1) {
+        r1Display.textContent =
+            formatResistance(r1);
+    }
+
+
+    if (r2Display && r2) {
+        r2Display.textContent =
+            formatResistance(r2);
+    }
+}
+
+
+function formatResistance(value) {
+
+    const resistance =
+        parseFloat(value);
+
+
+    if (resistance >= 1000000) {
+
+        return (
+            (resistance / 1000000)
+                .toFixed(2)
+                .replace(/\.00$/, "") +
+            " MΩ"
+        );
+
+    }
+
+
+    if (resistance >= 1000) {
+
+        return (
+            (resistance / 1000)
+                .toFixed(2)
+                .replace(/\.00$/, "") +
+            " kΩ"
+        );
+
+    }
+
+
+    return resistance + " Ω";
+}
+
+
+document
+    .getElementById("r1")
+    .addEventListener(
+        "input",
+        updateCircuitDiagram
+    );
+
+
+document
+    .getElementById("r2")
+    .addEventListener(
+        "input",
+        updateCircuitDiagram
+    );
+
+
+updateCircuitDiagram();
