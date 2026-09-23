@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Experiment Autopsy</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="hero">
+    <div class="hero-content">
+
+        <div class="brand-row">
+            <div class="logo">EA</div>
+
+            <div>
+                <p class="eyebrow">ELECTRONICS INVESTIGATION LAB</p>
+                <h1>Experiment Autopsy</h1>
+            </div>
+        </div>
+
+        <p class="tagline">
+            When theory and reality disagree, find out why.
+        </p>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            Investigation system ready
+        </div>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+    <!-- Progress -->
+
+    <section class="progress-card">
+
+        <div class="progress-step active">
+            <span>01</span>
+            <p>Predict</p>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-step">
+            <span>02</span>
+            <p>Measure</p>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-step">
+            <span>03</span>
+            <p>Investigate</p>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-step">
+            <span>04</span>
+            <p>Conclude</p>
+        </div>
+
+    </section>
+
+
+    <!-- Experiment -->
+
+    <section class="experiment-header">
+
+        <div>
+            <p class="eyebrow dark">EXPERIMENT 01</p>
+
+            <h2>Voltage Divider</h2>
+
+            <p>
+                Build the circuit, predict the output voltage,
+                then compare your real measurement.
+            </p>
+        </div>
+
+        <div class="experiment-badge">
+            Beginner
+        </div>
+
+    </section>
+
+
+    <!-- Prediction -->
+
+    <section class="card">
+
+        <div class="section-heading">
+
+            <div class="number">01</div>
+
+            <div>
+                <h3>Make your prediction</h3>
+
+                <p>
+                    Enter the values you used when building
+                    the physical circuit.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="formula">
+            V<sub>out</sub> =
+            V<sub>in</sub> ×
+            R<sub>2</sub> /
+            (R<sub>1</sub> + R<sub>2</sub>)
+        </div>
+
+
+        <div class="inputs">
+
+            <div class="input-group">
+                <label for="vin">
+                    Input Voltage
+                    <span>V</span>
+                </label>
+
+                <input
+                    id="vin"
+                    type="number"
+                    step="any"
+                    value="5"
+                >
+            </div>
+
+
+            <div class="input-group">
+                <label for="r1">
+                    R1
+                    <span>Ω</span>
+                </label>
+
+                <input
+                    id="r1"
+                    type="number"
+                    step="any"
+                    value="1000"
+                >
+            </div>
+
+
+            <div class="input-group">
+                <label for="r2">
+                    R2
+                    <span>Ω</span>
+                </label>
+
+                <input
+                    id="r2"
+                    type="number"
+                    step="any"
+                    value="2000"
+                >
+            </div>
+
+
+            <div class="input-group">
+                <label for="measured">
+                    Measured Vout
+                    <span>V</span>
+                </label>
+
+                <input
+                    id="measured"
+                    type="number"
+                    step="any"
+                    value="3.18"
+                >
+            </div>
+
+        </div>
+
+
+        <button id="analyzeBtn">
+            Analyze Experiment
+            <span>→</span>
+        </button>
+
+    </section>
+
+
+    <!-- Results -->
+
+    <section id="results" class="results hidden">
+
+        <div class="section-heading">
+
+            <div class="number">02</div>
+
+            <div>
+                <h3>Theory vs Reality</h3>
+
+                <p>
+                    Your physical measurement has been compared
+                    with the theoretical prediction.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="result-grid">
+
+            <div class="result-card">
+                <span>Theoretical</span>
+                <strong id="theoretical">--</strong>
+                <small>Expected voltage</small>
+            </div>
+
+            <div class="result-card">
+                <span>Measured</span>
+                <strong id="measuredResult">--</strong>
+                <small>Multimeter reading</small>
+            </div>
+
+            <div class="result-card">
+                <span>Difference</span>
+                <strong id="difference">--</strong>
+                <small>Measurement difference</small>
+            </div>
+
+            <div class="result-card">
+                <span>Error</span>
+                <strong id="error">--</strong>
+                <small>Relative error</small>
+            </div>
+
+        </div>
+
+
+        <div class="investigation-box">
+
+            <div class="investigation-icon">
+                ?
+            </div>
+
+            <div>
+
+                <p class="eyebrow dark">
+                    INVESTIGATION
+                </p>
+
+                <h3>Something changed.</h3>
+
+                <p id="diagnosisText">
+                    Your measurement differs from theory.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="next-step">
+
+    <div class="next-number">
+        03
+    </div>
+
+    <div class="next-content">
+
+        <p class="eyebrow dark">
+            NEXT MEASUREMENT
+        </p>
+
+        <h3>
+            Measure the actual input voltage
+        </h3>
+
+        <p>
+            Your calculation assumed that the supply
+            was exactly the value you entered.
+            Now measure the real supply voltage
+            using your multimeter.
+        </p>
+
+        <div class="investigation-input">
+
+            <label for="actualVin">
+                Actual Vin measured by you
+            </label>
+
+            <div class="measurement-row">
+
+                <input
+                    id="actualVin"
+                    type="number"
+                    step="any"
+                    placeholder="Example: 4.82"
+                >
+
+                <span>V</span>
+
+            </div>
+
+            <button
+                id="investigateBtn"
+                class="secondary-button"
+            >
+                Submit Measurement →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    id="investigationResult"
+    class="investigation-result hidden"
+>
+
+    <p class="eyebrow dark">
+        EVIDENCE FOUND
+    </p>
+
+    <h3 id="finding">
+        --
+    </h3>
+
+    <p id="cause">
+        --
+    </p>
+
+    <div class="next-investigation">
+
+        <strong>Next step</strong>
+
+        <p id="nextStep">
+            --
+        </p>
+
+    </div>
+
+</div>
+
+
+        <div class="learning-card">
+
+            <p class="eyebrow dark">
+                WHY THIS MATTERS
+            </p>
+
+            <h3>
+                Real components are not perfect.
+            </h3>
+
+            <p>
+                Theoretical calculations often assume ideal
+                components and exact values. Real circuits can
+                behave differently because of component tolerance,
+                supply variation, wiring, measurement equipment,
+                and other physical effects.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        Experiment Autopsy
+    </p>
+
+    <span>
+        Built for learning electronics through investigation.
+    </span>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+</html>
