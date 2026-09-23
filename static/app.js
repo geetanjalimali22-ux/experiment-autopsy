@@ -4,6 +4,8 @@ const analyzeButton =
 const investigateButton =
     document.getElementById("investigateBtn");
 
+const resistanceButton =
+    document.getElementById("resistanceBtn");
 
 let currentExperiment = null;
 
@@ -12,6 +14,15 @@ analyzeButton.addEventListener(
     "click",
     analyzeExperiment
 );
+
+if (resistanceButton) {
+
+    resistanceButton.addEventListener(
+        "click",
+        investigateResistance
+    );
+
+}
 
 
 investigateButton.addEventListener(
@@ -319,3 +330,110 @@ document
 
 
 updateCircuitDiagram();
+
+async function investigateResistance() {
+
+    if (!currentExperiment) {
+
+        alert(
+            "Analyze the experiment first."
+        );
+
+        return;
+    }
+
+
+    const actualR1 =
+        document.getElementById("actualR1").value;
+
+    const actualR2 =
+        document.getElementById("actualR2").value;
+
+
+    if (!actualR1 || !actualR2) {
+
+        alert(
+            "Enter both measured resistance values."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            "/api/investigate-resistance",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    expected_r1:
+                        currentExperiment.r1,
+
+                    expected_r2:
+                        currentExperiment.r2,
+
+                    actual_r1:
+                        actualR1,
+
+                    actual_r2:
+                        actualR2
+
+                })
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            alert(data.error);
+
+            return;
+        }
+
+
+        document.getElementById(
+            "resistanceFinding"
+        ).textContent =
+            data.finding;
+
+
+        document.getElementById(
+            "resistanceCause"
+        ).textContent =
+            data.cause;
+
+
+        document.getElementById(
+            "resistanceNextStep"
+        ).textContent =
+            data.next_step;
+
+
+        document.getElementById(
+            "resistanceResult"
+        ).classList.remove("hidden");
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Could not connect to the server."
+        );
+
+    }
+}

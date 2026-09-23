@@ -861,3 +861,114 @@ footer p {
     }
 
 }
+/* Circuit Diagram */
+
+.circuit-diagram {
+    margin-bottom: 30px;
+
+    padding: 22px;
+
+    background: #f7f7f7;
+    border: 1px solid #e4e4e4;
+    border-radius: 16px;
+}
+
+.circuit-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.circuit-title span {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #777;
+}
+
+.circuit-title small {
+    color: #999;
+    font-size: 12px;
+}
+
+.circuit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rail-label {
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.wire.vertical {
+    width: 2px;
+    height: 24px;
+    background: #222;
+}
+
+.component {
+    width: 110px;
+    padding: 13px 18px;
+
+    text-align: center;
+
+    background: white;
+    border: 2px solid #222;
+    border-radius: 6px;
+}
+
+.component span {
+    display: block;
+    font-weight: 800;
+}
+
+.component small {
+    display: block;
+    margin-top: 3px;
+    font-size: 11px;
+    color: #777;
+}
+
+.vout-node {
+    position: relative;
+
+    width: 140px;
+    padding: 8px;
+
+    text-align: center;
+
+    border: 1px dashed #777;
+    border-radius: 6px;
+
+    background: #fff;
+}
+
+.vout-node span {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.ground {
+    font-size: 12px;
+    font-weight: 800;
+    color: #555;
+}
+
+.resistance-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 22px;
+}
+
+@media (max-width: 650px) {
+
+    .resistance-inputs {
+        grid-template-columns: 1fr;
+    }
+
+}

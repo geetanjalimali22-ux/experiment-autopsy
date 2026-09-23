@@ -459,6 +459,108 @@
     id="investigationResult"
     class="investigation-result hidden"
 >
+<div
+    id="resistanceInvestigation"
+    class="next-step hidden"
+>
+
+    <div class="next-number">
+        04
+    </div>
+
+    <div class="next-content">
+
+        <p class="eyebrow dark">
+            NEXT EVIDENCE
+        </p>
+
+        <h3>
+            Measure the actual resistance
+        </h3>
+
+        <p>
+            Disconnect power from the circuit, then measure
+            R1 and R2 with your multimeter.
+        </p>
+
+        <div class="resistance-inputs">
+
+            <div class="input-group">
+
+                <label for="actualR1">
+                    Actual R1
+                    <span>Ω</span>
+                </label>
+
+                <input
+                    id="actualR1"
+                    type="number"
+                    step="any"
+                    placeholder="Example: 982"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="actualR2">
+                    Actual R2
+                    <span>Ω</span>
+                </label>
+
+                <input
+                    id="actualR2"
+                    type="number"
+                    step="any"
+                    placeholder="Example: 1987"
+                >
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="resistanceBtn"
+            class="secondary-button"
+        >
+            Analyze Resistance →
+        </button>
+
+    </div>
+
+</div>
+
+
+<div
+    id="resistanceResult"
+    class="investigation-result hidden"
+>
+
+    <p class="eyebrow dark">
+        RESISTANCE EVIDENCE
+    </p>
+
+    <h3 id="resistanceFinding">
+        --
+    </h3>
+
+    <p id="resistanceCause">
+        --
+    </p>
+
+    <div class="next-investigation">
+
+        <strong>Next step</strong>
+
+        <p id="resistanceNextStep">
+            --
+        </p>
+
+    </div>
+
+</div>
 
     <p class="eyebrow dark">
         EVIDENCE FOUND

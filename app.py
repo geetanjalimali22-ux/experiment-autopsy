@@ -187,6 +187,107 @@ def investigate_voltage():
             "error": "Please enter a valid input voltage."
         }), 400
 
+@app.route("/api/investigate-resistance", methods=["POST"])
+def investigate_resistance():
+
+    data = request.get_json()
+
+    try:
+        expected_r1 = float(data["expected_r1"])
+        expected_r2 = float(data["expected_r2"])
+        actual_r1 = float(data["actual_r1"])
+        actual_r2 = float(data["actual_r2"])
+
+        if expected_r1 <= 0 or expected_r2 <= 0:
+            return jsonify({
+                "error": "Expected resistance values must be positive."
+            }), 400
+
+        r1_error = (
+            (actual_r1 - expected_r1)
+            / expected_r1
+        ) * 100
+
+        r2_error = (
+            (actual_r2 - expected_r2)
+            / expected_r2
+        ) * 100
+
+        max_error = max(
+            abs(r1_error),
+            abs(r2_error)
+        )
+
+        if max_error < 1:
+
+            finding = (
+                "Both measured resistances are very close "
+                "to their expected values."
+            )
+
+            cause = (
+                "The supply and resistor values do not "
+                "strongly explain the original difference."
+            )
+
+            next_step = (
+                "Check the circuit wiring and multimeter "
+                "measurement setup."
+            )
+
+        elif max_error < 5:
+
+            finding = (
+                "The resistor values show a small "
+                "difference from their labelled values."
+            )
+
+            cause = (
+                "Component tolerance may explain part "
+                "of the difference."
+            )
+
+            next_step = (
+                "Use the measured resistor values to "
+                "recalculate the expected Vout."
+            )
+
+        else:
+
+            finding = (
+                "At least one resistor differs noticeably "
+                "from its expected value."
+            )
+
+            cause = (
+                "Resistor variation is a plausible "
+                "contributor to the original difference."
+            )
+
+            next_step = (
+                "Recalculate Vout using the actual Vin, "
+                "R1 and R2 values."
+            )
+
+        return jsonify({
+
+            "actual_r1": round(actual_r1, 3),
+            "actual_r2": round(actual_r2, 3),
+
+            "r1_error_percent": round(r1_error, 2),
+            "r2_error_percent": round(r2_error, 2),
+
+            "finding": finding,
+            "cause": cause,
+            "next_step": next_step
+
+        })
+
+    except (KeyError, TypeError, ValueError):
+
+        return jsonify({
+            "error": "Please enter valid resistance values."
+        }), 400
 
 if __name__ == "__main__":
     app.run(debug=True)
