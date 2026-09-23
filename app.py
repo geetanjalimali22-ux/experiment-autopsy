@@ -289,5 +289,107 @@ def investigate_resistance():
             "error": "Please enter valid resistance values."
         }), 400
 
+@app.route("/api/conclude-voltage-divider", methods=["POST"])
+def conclude_voltage_divider():
+
+    data = request.get_json()
+
+    try:
+        actual_vin = float(data["actual_vin"])
+        actual_r1 = float(data["actual_r1"])
+        actual_r2 = float(data["actual_r2"])
+        measured_vout = float(data["measured_vout"])
+
+        if actual_vin <= 0:
+            return jsonify({
+                "error": "Actual Vin must be positive."
+            }), 400
+
+        if actual_r1 <= 0 or actual_r2 <= 0:
+            return jsonify({
+                "error": "Measured resistances must be positive."
+            }), 400
+
+        recalculated_vout = (
+            actual_vin *
+            (actual_r2 / (actual_r1 + actual_r2))
+        )
+
+        remaining_difference = (
+            measured_vout - recalculated_vout
+        )
+
+        remaining_error = (
+            remaining_difference /
+            recalculated_vout
+        ) * 100
+
+        if abs(remaining_error) < 1:
+
+            conclusion = (
+                "The measured component values explain "
+                "most of the original difference."
+            )
+
+            interpretation = (
+                "After using the real Vin, R1 and R2 values, "
+                "the calculated Vout is very close to the "
+                "multimeter reading."
+            )
+
+        elif abs(remaining_error) < 3:
+
+            conclusion = (
+                "The measured component values explain "
+                "a large part of the difference."
+            )
+
+            interpretation = (
+                "A small discrepancy remains, which may "
+                "come from measurement uncertainty, wiring, "
+                "or other physical effects."
+            )
+
+        else:
+
+            conclusion = (
+                "The measured values do not fully explain "
+                "the original difference."
+            )
+
+            interpretation = (
+                "Additional investigation may be needed. "
+                "Check wiring, measurement technique, and "
+                "other circuit effects."
+            )
+
+        return jsonify({
+
+            "recalculated_vout":
+                round(recalculated_vout, 3),
+
+            "measured_vout":
+                round(measured_vout, 3),
+
+            "remaining_difference":
+                round(remaining_difference, 3),
+
+            "remaining_error":
+                round(remaining_error, 2),
+
+            "conclusion":
+                conclusion,
+
+            "interpretation":
+                interpretation
+
+        })
+
+    except (KeyError, TypeError, ValueError):
+
+        return jsonify({
+            "error": "Please enter valid measurement values."
+        }), 400
+
 if __name__ == "__main__":
     app.run(debug=True)

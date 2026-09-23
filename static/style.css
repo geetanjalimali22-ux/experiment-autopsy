@@ -972,3 +972,109 @@ footer p {
     }
 
 }
+
+/* Final Conclusion */
+
+.conclusion-section {
+    margin-top: 20px;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #dedede;
+
+    border-radius: 16px;
+}
+
+.conclusion-section h3 {
+    font-size: 24px;
+    margin: 6px 0 8px;
+}
+
+.conclusion-intro {
+    color: #666;
+    font-size: 14px;
+}
+
+.conclusion-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+.conclusion-value {
+    padding: 18px;
+
+    background: #f7f7f7;
+
+    border-radius: 12px;
+}
+
+.conclusion-value span {
+    display: block;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    color: #777;
+
+    margin-bottom: 8px;
+}
+
+.conclusion-value strong {
+    font-size: 22px;
+
+    color: #111;
+}
+
+.conclusion-message {
+    margin-top: 16px;
+
+    padding: 22px;
+
+    background: #111;
+
+    color: white;
+
+    border-radius: 14px;
+}
+
+.conclusion-message .eyebrow {
+    color: #999;
+}
+
+.conclusion-message h4 {
+    font-size: 19px;
+
+    margin: 5px 0 8px;
+}
+
+.conclusion-message p:last-child {
+    color: #ccc;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+@media (max-width: 700px) {
+
+    .conclusion-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .conclusion-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
