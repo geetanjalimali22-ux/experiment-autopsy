@@ -71,7 +71,54 @@
 
     </section>
 
+<!-- Experiment Selector -->
 
+<section class="experiment-selector">
+
+    <div class="selector-heading">
+        <p class="eyebrow dark">CHOOSE AN EXPERIMENT</p>
+
+        <h2>What are you investigating?</h2>
+
+        <p>
+            Select an experiment to begin your investigation.
+        </p>
+    </div>
+
+    <div class="experiment-options">
+
+        <button class="experiment-option active">
+            <span class="option-number">01</span>
+
+            <span class="option-content">
+                <strong>Voltage Divider</strong>
+                <small>Compare theoretical and measured Vout</small>
+            </span>
+        </button>
+
+
+        <button class="experiment-option" disabled>
+            <span class="option-number">02</span>
+
+            <span class="option-content">
+                <strong>Ohm's Law</strong>
+                <small>Coming next</small>
+            </span>
+        </button>
+
+
+        <button class="experiment-option" disabled>
+            <span class="option-number">03</span>
+
+            <span class="option-content">
+                <strong>LED + Resistor</strong>
+                <small>Coming next</small>
+            </span>
+        </button>
+
+    </div>
+
+</section>
     <!-- Experiment -->
 
     <section class="experiment-header">
@@ -214,34 +261,80 @@
         </div>
 
 
-        <div class="result-grid">
+        <div class="comparison-visual">
 
-            <div class="result-card">
-                <span>Theoretical</span>
-                <strong id="theoretical">--</strong>
-                <small>Expected voltage</small>
-            </div>
+    <div class="measurement-card theory-card">
 
-            <div class="result-card">
-                <span>Measured</span>
-                <strong id="measuredResult">--</strong>
-                <small>Multimeter reading</small>
-            </div>
+        <span class="measurement-label">
+            THEORY
+        </span>
 
-            <div class="result-card">
-                <span>Difference</span>
-                <strong id="difference">--</strong>
-                <small>Measurement difference</small>
-            </div>
+        <strong id="theoretical">
+            -- V
+        </strong>
 
-            <div class="result-card">
-                <span>Error</span>
-                <strong id="error">--</strong>
-                <small>Relative error</small>
-            </div>
+        <small>
+            Expected output
+        </small>
 
-        </div>
+    </div>
 
+
+    <div class="comparison-arrow">
+        →
+    </div>
+
+
+    <div class="measurement-card reality-card">
+
+        <span class="measurement-label">
+            REALITY
+        </span>
+
+        <strong id="measuredResult">
+            -- V
+        </strong>
+
+        <small>
+            Multimeter reading
+        </small>
+
+    </div>
+
+</div>
+
+
+<div class="difference-panel">
+
+    <div>
+
+        <span class="measurement-label">
+            DIFFERENCE
+        </span>
+
+        <strong id="difference">
+            -- V
+        </strong>
+
+    </div>
+
+
+    <div class="difference-divider"></div>
+
+
+    <div>
+
+        <span class="measurement-label">
+            RELATIVE ERROR
+        </span>
+
+        <strong id="error">
+            --%
+        </strong>
+
+    </div>
+
+</div>
 
         <div class="investigation-box">
 
