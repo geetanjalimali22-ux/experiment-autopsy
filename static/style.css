@@ -1078,3 +1078,24 @@ footer p {
     }
 
 }
+
+.progress-step.active {
+    color: #111;
+    font-weight: 800;
+}
+
+.progress-step.completed {
+    color: #111;
+}
+
+.progress-step.completed::before {
+    content: "✓";
+    margin-right: 6px;
+    font-weight: 900;
+}
+
+.progress-step.active::before {
+    content: "●";
+    margin-right: 6px;
+    font-size: 9px;
+}

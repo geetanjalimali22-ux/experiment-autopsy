@@ -1,3 +1,23 @@
+function updateProgress(step) {
+
+    const steps = document.querySelectorAll(".progress-step");
+
+    steps.forEach((item, index) => {
+
+        item.classList.remove("active");
+        item.classList.remove("completed");
+
+        if (index < step - 1) {
+            item.classList.add("completed");
+        }
+
+        if (index === step - 1) {
+            item.classList.add("active");
+        }
+
+    });
+}
+
 const analyzeButton =
     document.getElementById("analyzeBtn");
 
@@ -118,6 +138,7 @@ async function analyzeExperiment() {
         document.getElementById(
             "results"
         ).classList.remove("hidden");
+        updateProgress(2);
 
 
         currentExperiment = {
@@ -234,6 +255,7 @@ async function investigateExperiment() {
         document.getElementById(
             "investigationResult"
         ).classList.remove("hidden");
+        updateProgress(3);
 
         document
     .getElementById("resistanceInvestigation")
@@ -544,6 +566,8 @@ async function concludeExperiment() {
             "conclusionSection"
         ).classList.remove("hidden");
 
+        updateProgress(4);
+
     }
 
     catch (error) {
@@ -555,65 +579,4 @@ async function concludeExperiment() {
         );
 
     }
-}
-
-async function concludeExperiment() {
-
-    if (!currentExperiment) {
-        return;
-    }
-
-    const actualVin =
-        parseFloat(document.getElementById("actualVin").value);
-
-    const actualR1 =
-        parseFloat(document.getElementById("actualR1").value);
-
-    const actualR2 =
-        parseFloat(document.getElementById("actualR2").value);
-
-    const response = await fetch(
-        "/api/conclude-voltage-divider",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                actual_vin: actualVin,
-                actual_r1: actualR1,
-                actual_r2: actualR2,
-                measured_vout: currentExperiment.measured
-            })
-        }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-        alert(data.error || "Unable to calculate conclusion.");
-        return;
-    }
-
-    document.getElementById("conclusionMeasured").textContent =
-        data.measured_vout + " V";
-
-    document.getElementById("recalculatedVout").textContent =
-        data.recalculated_vout + " V";
-
-    document.getElementById("remainingDifference").textContent =
-        data.remaining_difference + " V";
-
-    document.getElementById("remainingError").textContent =
-        data.remaining_error + "%";
-
-    document.getElementById("conclusionText").textContent =
-        data.conclusion;
-
-    document.getElementById("interpretationText").textContent =
-        data.interpretation;
-
-    document
-        .getElementById("conclusionSection")
-        .classList.remove("hidden");
 }
