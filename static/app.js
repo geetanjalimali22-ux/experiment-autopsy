@@ -185,6 +185,9 @@ document.getElementById("interpretationText").textContent =
 
 document.getElementById("conclusionSection")
     .classList.remove("hidden");
+document
+    .getElementById("learningSection")
+    .classList.remove("hidden");
 } else {
 
     investigationSection.classList.remove("hidden");
@@ -616,6 +619,9 @@ async function concludeExperiment() {
         document.getElementById(
             "conclusionSection"
         ).classList.remove("hidden");
+        
+        document.getElementById("learningSection")
+    .classList.remove("hidden");
 
         updateProgress(4);
 

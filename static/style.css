@@ -1112,3 +1112,43 @@ footer p {
     font-size: 15px;
     color: #111;
 }
+
+.learning-section {
+    margin-top: 20px;
+    padding: 28px;
+    background: #f7f7f7;
+    border: 1px solid #dedede;
+    border-radius: 16px;
+}
+
+.learning-section h3 {
+    font-size: 22px;
+    margin: 6px 0 10px;
+}
+
+.learning-section > p:not(.eyebrow) {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 760px;
+}
+
+.learning-lesson {
+    margin-top: 18px;
+    padding: 18px;
+    background: #ffffff;
+    border-radius: 12px;
+}
+
+.learning-lesson strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+}
+
+.learning-lesson p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+}
