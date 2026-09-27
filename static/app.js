@@ -128,6 +128,21 @@ async function analyzeExperiment() {
         ).textContent =
             data.error_percent + "%";
 
+const measurementStatus =
+    document.getElementById("measurementStatus");
+
+const errorPercent = Math.abs(data.error_percent);
+
+if (errorPercent < 1) {
+    measurementStatus.textContent = "✓ Excellent agreement";
+} else if (errorPercent < 2) {
+    measurementStatus.textContent = "✓ Close match";
+} else if (errorPercent < 5) {
+    measurementStatus.textContent = "△ Small difference";
+} else {
+    measurementStatus.textContent = "! Needs investigation";
+}
+
 
         document.getElementById(
             "diagnosisText"
@@ -139,6 +154,42 @@ async function analyzeExperiment() {
             "results"
         ).classList.remove("hidden");
         updateProgress(2);
+
+        const investigationSection =
+    document.getElementById("investigationResult");
+
+if (Math.abs(data.error_percent) < 1) {
+
+    investigationSection.classList.add("hidden");
+
+    document.getElementById("diagnosisText").textContent =
+        "The measured result agrees closely with the theoretical prediction. No significant discrepancy needs investigation.";
+    updateProgress(4);
+    document.getElementById("conclusionMeasured").textContent =
+    data.measured + " V";
+
+document.getElementById("recalculatedVout").textContent =
+    data.theoretical + " V";
+
+document.getElementById("remainingDifference").textContent =
+    data.difference + " V";
+
+document.getElementById("remainingError").textContent =
+    data.error_percent + "%";
+
+document.getElementById("conclusionText").textContent =
+    "Experiment verified";
+
+document.getElementById("interpretationText").textContent =
+    "The measured output agrees closely with the theoretical prediction. No significant discrepancy was detected.";
+
+document.getElementById("conclusionSection")
+    .classList.remove("hidden");
+} else {
+
+    investigationSection.classList.remove("hidden");
+
+}
 
 
         currentExperiment = {
